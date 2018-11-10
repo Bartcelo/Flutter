@@ -21,7 +21,6 @@ void main() async {
       hintColor: Colors.amber,
       primaryColor: Colors.white,
     ),
-
   ));
 }
 
@@ -78,17 +77,19 @@ class _HomeState extends State<Home> {
                             color: Colors.amber,
                           ),
                           TextField(
-                            style: TextStyle(color: Colors.amber, fontSize: 25.0),
+                            style:
+                                TextStyle(color: Colors.amber, fontSize: 25.0),
                             decoration: InputDecoration(
-                                labelText: "Reais",
-                                labelStyle: TextStyle(color: Colors.amber),
-                                border: OutlineInputBorder(),
-                                prefixText: "R\$",
+                              labelText: "Reais",
+                              labelStyle: TextStyle(color: Colors.amber),
+                              border: OutlineInputBorder(),
+                              prefixText: "R\$",
                             ),
                           ),
                           Divider(),
                           TextField(
-                            style: TextStyle(color: Colors.amber, fontSize: 25.0),
+                            style:
+                                TextStyle(color: Colors.amber, fontSize: 25.0),
                             decoration: InputDecoration(
                               labelText: "Dolares",
                               labelStyle: TextStyle(color: Colors.amber),
@@ -98,7 +99,8 @@ class _HomeState extends State<Home> {
                           ),
                           Divider(),
                           TextField(
-                            style: TextStyle(color: Colors.amber, fontSize: 25.0),
+                            style:
+                                TextStyle(color: Colors.amber, fontSize: 25.0),
                             decoration: InputDecoration(
                               labelText: "Euros",
                               labelStyle: TextStyle(color: Colors.amber),
