@@ -32,6 +32,29 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   double dolar;
   double euro;
+  final realcontroller = TextEditingController();
+  final dolarcontroller = TextEditingController();
+  final eurocontroller = TextEditingController();
+
+
+  void _realChanged(String text) {
+    double real = double.parse(text);
+    dolarcontroller.text = (real/dolar).toStringAsFixed(2);
+    eurocontroller.text = (real/euro).toStringAsFixed(2);
+  }
+
+  void _dolarChanged(String text) {
+    double dolar = double.parse(text);
+    realcontroller.text = (dolar * this.dolar).toStringAsFixed(2);
+    eurocontroller.text = (dolar * this.dolar/euro).toStringAsFixed(2);
+  }
+
+  void _euroChanged(String text) {
+    double euro = double.parse(text);
+    realcontroller.text = (euro * this.euro).toStringAsFixed(2);
+    dolarcontroller.text = (euro * this.euro / dolar).toStringAsFixed(2);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -50,21 +73,21 @@ class _HomeState extends State<Home> {
                 case ConnectionState.waiting:
                   return Center(
                       child: Text(
-                    "Carregando Dados ...",
-                    style: TextStyle(color: Colors.amber, fontSize: 25.0),
-                    textAlign: TextAlign.center,
-                  ));
+                        "Carregando Dados ...",
+                        style: TextStyle(color: Colors.amber, fontSize: 25.0),
+                        textAlign: TextAlign.center,
+                      ));
                 default:
                   if (snapshot.hasError) {
                     return Center(
                         child: Text(
-                      "Erro ao carregar dados :(",
-                      style: TextStyle(color: Colors.amber, fontSize: 25.0),
-                      textAlign: TextAlign.center,
-                    ));
+                          "Erro ao carregar dados :(",
+                          style: TextStyle(color: Colors.amber, fontSize: 25.0),
+                          textAlign: TextAlign.center,
+                        ));
                   } else {
                     dolar =
-                        snapshot.data["results"]["currencies"]["USD"]["buy"];
+                    snapshot.data["results"]["currencies"]["USD"]["buy"];
                     euro = snapshot.data["results"]["currencies"]["EUR"]["buy"];
                     return SingleChildScrollView(
                       padding: EdgeInsets.all(10.0),
@@ -76,38 +99,14 @@ class _HomeState extends State<Home> {
                             size: 120.0,
                             color: Colors.amber,
                           ),
-                          TextField(
-                            style:
-                                TextStyle(color: Colors.amber, fontSize: 25.0),
-                            decoration: InputDecoration(
-                              labelText: "Reais",
-                              labelStyle: TextStyle(color: Colors.amber),
-                              border: OutlineInputBorder(),
-                              prefixText: "R\$",
-                            ),
-                          ),
+                          lendoTextfild(
+                              "Reais", "R\$", realcontroller, _realChanged),
                           Divider(),
-                          TextField(
-                            style:
-                                TextStyle(color: Colors.amber, fontSize: 25.0),
-                            decoration: InputDecoration(
-                              labelText: "Dolares",
-                              labelStyle: TextStyle(color: Colors.amber),
-                              border: OutlineInputBorder(),
-                              prefixText: "US\$",
-                            ),
-                          ),
+                          lendoTextfild("Dolares", "US\$", dolarcontroller,
+                              _dolarChanged),
                           Divider(),
-                          TextField(
-                            style:
-                                TextStyle(color: Colors.amber, fontSize: 25.0),
-                            decoration: InputDecoration(
-                              labelText: "Euros",
-                              labelStyle: TextStyle(color: Colors.amber),
-                              border: OutlineInputBorder(),
-                              prefixText: "€",
-                            ),
-                          ),
+                          lendoTextfild(
+                              "Euros", "€", eurocontroller, _euroChanged),
                         ],
                       ),
                     );
@@ -115,4 +114,29 @@ class _HomeState extends State<Home> {
               }
             }));
   }
+}
+
+Widget lendoTextfild
+(
+
+String label, String
+
+prefix TextEditingController
+controller,
+
+Function changed
+)
+{
+return TextField(
+controller: controller,
+style: TextStyle(color: Colors.amber, fontSize: 25.0),
+decoration: InputDecoration(
+labelText: label,
+labelStyle: TextStyle(color: Colors.amber),
+border: OutlineInputBorder(),
+prefixText: prefix,
+),
+onChanged: changed,
+keyboardType: TextInputType.number,
+);
 }
