@@ -1,11 +1,12 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 
-void main(){
-
+void main() {
   runApp(MaterialApp(
-    home: Home(
-
-    ),
+    home: Home(),
   ));
 }
 
@@ -15,15 +16,84 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List _toDoList = ["marcelo", "raiane"];
+  final _addcontroller = TextEditingController();
+
+  void _addTodo() {
+    setState(() {
+      Map<String, dynamic> newTodo = Map();
+      newTodo["Title"] = _addcontroller.text;
+      _addcontroller.text = "";
+      newTodo["OK"] = false;
+      _toDoList.add(newTodo);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.cyan,
       appBar: AppBar(
         title: Text("Lista de Tarefas"),
-        backgroundColor: Colors.indigo,
+        backgroundColor: Colors.blueAccent,
         centerTitle: true,
       ),
+      body: Column(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.fromLTRB(17.0, 1.0, 7.0, 1.0),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: TextField(
+                    controller: _addcontroller,
+                    decoration: InputDecoration(
+                        labelText: "Nova Tarefa",
+                        labelStyle: TextStyle(color: Colors.blueAccent)),
+                  ),
+                ),
+                RaisedButton(
+                  color: Colors.blueAccent,
+                  child: Text("ADD"),
+                  textColor: Colors.white,
+                  onPressed: (){},
+                )
+              ],
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+                padding: EdgeInsets.only(top: 10.0),
+                itemCount: _toDoList.length,
+                itemBuilder: (contex, index) {
+                  return ListTile (
+                    title: Text(_toDoList[index]),
+                  );
+                }),
+          )
+        ],
+      ),
     );
+  }
+
+  Future<File> _getFile() async {
+    final directory = await getApplicationDocumentsDirectory();
+    return File("${directory.path}/data.json");
+  }
+
+  Future<File> _saveData() async {
+    String data = json.encode(_toDoList);
+
+    final file = await _getFile();
+    return file.writeAsString(data);
+  }
+
+  Future<String> _readData() async {
+    try {
+      final file = await _getFile();
+
+      return file.readAsStringSync();
+    } catch (e) {
+      return null;
+    }
   }
 }
