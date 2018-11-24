@@ -16,16 +16,29 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List _toDoList = ["marcelo", "raiane"];
+  List _toDoList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _readData().then((data) {
+      setState(() {
+        _toDoList = json.decode(data);
+      });
+    });
+  }
+
   final _addcontroller = TextEditingController();
 
   void _addTodo() {
     setState(() {
       Map<String, dynamic> newTodo = Map();
-      newTodo["Title"] = _addcontroller.text;
+      newTodo["title"] = _addcontroller.text;
       _addcontroller.text = "";
-      newTodo["OK"] = false;
+      newTodo["ok"] = false;
       _toDoList.add(newTodo);
+
+      _saveData();
     });
   }
 
@@ -55,7 +68,7 @@ class _HomeState extends State<Home> {
                   color: Colors.blueAccent,
                   child: Text("ADD"),
                   textColor: Colors.white,
-                  onPressed: (){},
+                  onPressed: _addTodo,
                 )
               ],
             ),
@@ -64,9 +77,20 @@ class _HomeState extends State<Home> {
             child: ListView.builder(
                 padding: EdgeInsets.only(top: 10.0),
                 itemCount: _toDoList.length,
-                itemBuilder: (contex, index) {
-                  return ListTile (
-                    title: Text(_toDoList[index]),
+                itemBuilder: (context, index) {
+                  return CheckboxListTile(
+                    title: Text(_toDoList[index]["title"]),
+                    value: _toDoList[index]["ok"],
+                    secondary: CircleAvatar(
+                      child: Icon(
+                          _toDoList[index]["ok"] ? Icons.check : Icons.error),
+                    ),
+                    onChanged: (ok) {
+                      setState(() {
+                        _toDoList[index]["ok"] = ok;
+                        _saveData();
+                      });
+                    },
                   );
                 }),
           )
