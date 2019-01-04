@@ -18,6 +18,12 @@ class _HomePageState extends State<HomePage> {
     totalBlack.text = '';
 }
 
+
+
+//  o metodo abaixo faz a soma dos valores da equipe  vermelha
+  // nesse metodo preciso somar o valor que foifeito nessa rodada com o da proxima.
+
+
   void _somarRed(){
 
     totalRed.text = null;
@@ -33,7 +39,7 @@ class _HomePageState extends State<HomePage> {
 
     });
     }
-
+// ----------------------------------------------------------------------------------
 
 
   @override
