@@ -11,35 +11,96 @@ class _HomePageState extends State<HomePage> {
   TextEditingController totalRed = TextEditingController();
   TextEditingController totalBlack = TextEditingController();
 
-  void _novojogo (){
-    equipered.text = '';
-    equipeblack.text = '';
-    totalRed.text = '';
-    totalBlack.text = '';
-}
+  TextEditingController nomedaequipe = TextEditingController();
+  TextEditingController nomedaequipedois = TextEditingController();
 
+  String nomeequipe = 'Nome da Equipe Um';
+  String nomeequipedois = 'Nome da Equipe Dois';
 
+  void _novojogo() {
+    setState(() {
+
+      equipered.text = '';
+      equipeblack.text = '';
+      totalRed.text = '';
+      totalBlack.text = '';
+      nomeequipe = 'Nome da Equipe Um';
+      nomeequipedois = 'Nome da Equipe Dois';
+
+    });
+
+  }
 
 //  o metodo abaixo faz a soma dos valores da equipe  vermelha
   // nesse metodo preciso somar o valor que foifeito nessa rodada com o da proxima.
 
-
-  void _somarRed(){
-
+  void _somarRed() {
     totalRed.text = null;
 
     setState(() {
+      double um = double.parse(equipered.text);
+      double dois = double.parse(totalRed.text);
 
-       double um = double.parse(equipered.text);
-       double dois = double.parse(totalRed.text);
+      double soma = um + dois;
 
-       double soma = um + dois;
-
-       totalRed.text = "$soma";
-
+      totalRed.text = "$soma";
     });
-    }
+  }
 // ----------------------------------------------------------------------------------
+
+  void nomeEquipe() {
+    showDialog(
+        context: context,
+        child: SimpleDialog(
+          title: Text('Digite o nome da equipe'),
+          children: <Widget>[
+            TextFormField(
+              decoration: InputDecoration(
+                  labelText: 'Nome da equipw',
+                  hintText: 'Digite o nome da equipe'),
+              controller: nomedaequipe,
+            ),
+            RaisedButton(
+              child: Text('ok'),
+              onPressed: () {
+                setState(() {
+                  nomeequipe = nomedaequipe.text;
+                  Navigator.of(context).pop(true);
+                });
+              },
+            )
+          ],
+        ));
+  }
+
+
+  void nomeEquipedois() {
+    showDialog(
+        context: context,
+        child: SimpleDialog(
+          title: Text('Digite o nome da equipe'),
+          children: <Widget>[
+            TextFormField(
+              decoration: InputDecoration(
+                  labelText: 'Nome da equipw',
+                  hintText: 'Digite o nome da equipe'),
+              controller: nomedaequipedois,
+            ),
+            RaisedButton(
+              child: Text('ok'),
+              onPressed: () {
+                setState(() {
+                  nomeequipedois = nomedaequipedois.text;
+                  Navigator.of(context).pop(true);
+                });
+              },
+            )
+          ],
+        ));
+  }
+
+
+
 
 
   @override
@@ -59,49 +120,44 @@ class _HomePageState extends State<HomePage> {
               children: <Widget>[
                 Center(
                   child: Card(
-                    color: Colors.red,
+                    color: Colors.blueAccent,
                     child: Container(
                       padding: new EdgeInsets.all(05.0),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
-                          Text(
-                            "Equipe Red",
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 20.0),
+                          AppBar(
+                            flexibleSpace: FlatButton(
+                              child: Text(nomeequipe),
+                              onPressed: nomeEquipe,
+                            ),
+                            actions: <Widget>[Icon(Icons.people)],
                           ),
-                          Divider(),
-                          TextField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(border: OutlineInputBorder()),
-                            style: TextStyle(color: Colors.white),
-                            controller: equipered,
+                          Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: TextFormField(
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                  labelText: 'Pontos da Rodada',
+                                  hintText: 'Digite os pontos da Rodada'),
+                              controller: equipered,
+                            ),
                           ),
-                          Divider(),
-                          Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Container(
-                                  child: RaisedButton(
-                                    onPressed: _somarRed,
-                                    child: Text(
-                                      "Somar",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    color: Colors.black,
-                                  ),
-                                ),
+                          Container(
+                            child: RaisedButton(
+                              onPressed: _somarRed,
+                              child: Text(
+                                "Somar",
+                                //style: TextStyle(color: Colors.white),
                               ),
-                            ],
+                              //color: Colors.black,
+                            ),
                           ),
-                          Divider(),
                           TextField(
                             enabled: false,
-                              style: TextStyle(color: Colors.white),
-                              controller:totalRed,
-
+                            style: TextStyle(color: Colors.white),
+                            controller: totalRed,
                           ),
-
                         ],
                       ),
                     ),
@@ -130,54 +186,50 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ],
                           ),
-
-                          ],
+                        ],
                       ),
                     ),
                   ),
                 ),
                 Center(
                   child: Card(
-                    color: Colors.black,
+                    color: Colors.blueAccent,
                     child: Container(
                       padding: new EdgeInsets.all(05.0),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
-                          Text(
-                            "Equipe Black",
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 20.0),
+                          AppBar(
+                            flexibleSpace: FlatButton(
+                              child: Text(nomeequipedois),
+                              onPressed:nomeEquipedois,
+                            ),
+                            actions: <Widget>[Icon(Icons.people)],
                           ),
-                          Divider(),
-                          TextField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(border: OutlineInputBorder()),
-                            style: TextStyle(color: Colors.white),
-                            controller: equipeblack,
+                          Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: TextFormField(
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                  labelText: 'Pontos da Rodada',
+                                  hintText: 'Digite os pontos da Rodada'),
+                              controller: equipered,
+                            ),
                           ),
-                          Divider(),
-                          Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Container(
-                                  child: RaisedButton(
-                                    onPressed: () {},
-                                    child: Text(
-                                      "Somar",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    color: Colors.red,
-                                  ),
-                                ),
+                          Container(
+                            child: RaisedButton(
+                              onPressed: _somarRed,
+                              child: Text(
+                                "Somar",
+                                //style: TextStyle(color: Colors.white),
                               ),
-                            ],
+                              //color: Colors.black,
+                            ),
                           ),
-                          Divider(),
                           TextField(
                             enabled: false,
-                            controller:totalBlack,
-
+                            style: TextStyle(color: Colors.white),
+                            controller: totalRed,
                           ),
                         ],
                       ),
