@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
 
       equipered.text = '';
       equipeblack.text = '';
-      totalRed.text = '';
+      //totalRed.text = 0 as String;
       totalBlack.text = '';
       nomeequipe = 'Nome da Equipe Um';
       nomeequipedois = 'Nome da Equipe Dois';
@@ -32,19 +32,20 @@ class _HomePageState extends State<HomePage> {
   }
 
 //  o metodo abaixo faz a soma dos valores da equipe  vermelha
-  // nesse metodo preciso somar o valor que foifeito nessa rodada com o da proxima.
+  // nesse metodo preciso somar o valor que foi feito nessa rodada com o da proxima.
+
+
+
 
   void _somarRed() {
-    totalRed.text = null;
 
-    setState(() {
-      double um = double.parse(equipered.text);
-      double dois = double.parse(totalRed.text);
+    int um = totalRed.value as int ;
+    int dois = int.parse(equipered.text);
 
-      double soma = um + dois;
+  int soma = um + dois;
 
-      totalRed.text = "$soma";
-    });
+  totalRed.text = '$soma';
+
   }
 // ----------------------------------------------------------------------------------
 
@@ -120,6 +121,7 @@ class _HomePageState extends State<HomePage> {
               children: <Widget>[
                 Center(
                   child: Card(
+
                     color: Colors.blueAccent,
                     child: Container(
                       padding: new EdgeInsets.all(05.0),
@@ -127,6 +129,7 @@ class _HomePageState extends State<HomePage> {
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                           AppBar(
+                            backgroundColor: Colors.red,
                             flexibleSpace: FlatButton(
                               child: Text(nomeequipe),
                               onPressed: nomeEquipe,
@@ -154,7 +157,8 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           TextField(
-                            enabled: false,
+                            decoration: InputDecoration(border: OutlineInputBorder()),
+
                             style: TextStyle(color: Colors.white),
                             controller: totalRed,
                           ),
@@ -202,7 +206,7 @@ class _HomePageState extends State<HomePage> {
                           AppBar(
                             flexibleSpace: FlatButton(
                               child: Text(nomeequipedois),
-                              onPressed:nomeEquipedois,
+                              onPressed: nomeEquipedois,
                             ),
                             actions: <Widget>[Icon(Icons.people)],
                           ),
@@ -213,7 +217,7 @@ class _HomePageState extends State<HomePage> {
                               decoration: InputDecoration(
                                   labelText: 'Pontos da Rodada',
                                   hintText: 'Digite os pontos da Rodada'),
-                              controller: equipered,
+                              controller: equipeblack,
                             ),
                           ),
                           Container(
@@ -227,9 +231,11 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           TextField(
-                            enabled: false,
+
+                            decoration: InputDecoration(border: OutlineInputBorder()),
+
                             style: TextStyle(color: Colors.white),
-                            controller: totalRed,
+                            controller: totalBlack,
                           ),
                         ],
                       ),
