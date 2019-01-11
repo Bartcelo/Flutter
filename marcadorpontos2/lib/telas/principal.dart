@@ -20,8 +20,7 @@ class _HomeState extends State<Home> {
   TextEditingController nomedaequipe = TextEditingController();
   TextEditingController nomedaequipedois = TextEditingController();
 
-  String nomeequipe = 'Nome da Equipe';
-
+  String nomeequipe = 'Nome da equipe';
 
 
 
@@ -55,6 +54,7 @@ class _HomeState extends State<Home> {
 
 
   List _todolist = [];
+
   int _add = 1;
 
   void _adicionar (delta){
@@ -99,6 +99,7 @@ class _HomeState extends State<Home> {
             padding: EdgeInsets.only(top: 10.0),
             itemCount: _add,
             itemBuilder:(context,index){
+              final nome =  index + 1;
               return Center(
                 child: Card(
                   child: Container(
@@ -107,9 +108,10 @@ class _HomeState extends State<Home> {
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         AppBar(
+
                           backgroundColor: Colors.redAccent[100],
                           flexibleSpace: FlatButton(
-                            child: Text(nomeequipe, style: TextStyle(color: Colors.white, fontSize: 15.0),),
+                            child: Text('$nomeequipe '+'$nome', style: TextStyle(color: Colors.white, fontSize: 15.0),),
                             onPressed: nomeEquipe,
                           ),
                           actions: <Widget>[Icon(Icons.people)],
