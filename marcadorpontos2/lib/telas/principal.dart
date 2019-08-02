@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+// ignore: uri_does_not_exist
 import 'package:path_provider/path_provider.dart';
 
 
@@ -22,7 +23,8 @@ class _HomeState extends State<Home> {
 
   String nomeequipe = 'Nome da equipe';
 
-
+  final todos = <String>[];
+  final _controller = TextEditingController();
 
   void nomeEquipe() {
     showDialog(
@@ -32,7 +34,7 @@ class _HomeState extends State<Home> {
           children: <Widget>[
             TextFormField(
               decoration: InputDecoration(
-                  labelText: 'Nome da equipw',
+                  labelText: 'Nome da equipe',
                   hintText: 'Digite o nome da equipe'),
               controller: nomedaequipe,
             ),
@@ -40,7 +42,9 @@ class _HomeState extends State<Home> {
               child: Text('ok'),
               onPressed: () {
                 setState(() {
-                  nomeequipe = nomedaequipe.text;
+
+                  // ignore: missing_identifier
+                  nomeequipe = _controller.text;
                   Navigator.of(context).pop(true);
                 });
               },
@@ -99,12 +103,15 @@ class _HomeState extends State<Home> {
             padding: EdgeInsets.only(top: 10.0),
             itemCount: _add,
             itemBuilder:(context,index){
+              _controller;
+              //_controller.add(TextEditingController());
               final nome =  index + 1;
               return Center(
                 child: Card(
                   child: Container(
                     padding: new EdgeInsets.all(05.0),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         AppBar(
@@ -158,8 +165,8 @@ class _HomeState extends State<Home> {
 
 
   Future<File> _getFile() async{
-    final   directory = await getApplicationDocumentsDirectory();
-    return  File ("${directory.path}/data.jason");
+   // final   directory = await getApplicationDocumentsDirectory();
+   // return  File ("${directory.path}/data.jason");
   }
 
   Future<File> _saveData() async{
@@ -181,3 +188,5 @@ class _HomeState extends State<Home> {
   }
 
 }
+
+
