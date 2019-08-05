@@ -11,11 +11,7 @@ class PaginaContato extends StatefulWidget {
 }
 
 class _PaginaContatoState extends State<PaginaContato> {
-
- bool _dom = true;
-
-
-
+  bool _dom = true;
 
   Contact _editContact;
   bool _userEdited = false;
@@ -49,7 +45,6 @@ class _PaginaContatoState extends State<PaginaContato> {
 
   @override
   Widget build(BuildContext context) {
-   
     return WillPopScope(
       onWillPop: _requestPop,
       child: Scaffold(
@@ -100,6 +95,10 @@ class _PaginaContatoState extends State<PaginaContato> {
                 controller: _poltronacontroller,
                 decoration: InputDecoration(labelText: "Poltrona"),
                 onChanged: (text) {
+                  if (int.parse(text) > 46) {
+                    _maxPoltronas();
+                    _poltronacontroller.text = "";
+                  }
                   _userEdited = true;
                   _editContact.poltrona = text;
                 },
@@ -109,6 +108,10 @@ class _PaginaContatoState extends State<PaginaContato> {
                 controller: _grupocontroller,
                 decoration: InputDecoration(labelText: "Grupo"),
                 onChanged: (text) {
+                  if (int.parse(text) > 6) {
+                    _maxGrupo();
+                    _grupocontroller.text = "";
+                  }
                   _userEdited = true;
                   _editContact.grupo = text;
                 },
@@ -138,14 +141,13 @@ class _PaginaContatoState extends State<PaginaContato> {
                   _editContact.domingo = text;
                 },
               ),
-              new Checkbox(onChanged: (bool resp)
-              {
-                setState(() {
-                 _dom = resp; 
-                });
-              },
-              value: _dom,
-              
+              new Checkbox(
+                onChanged: (bool resp) {
+                  setState(() {
+                    _dom = resp;
+                  });
+                },
+                value: _dom,
               )
             ],
           ),
@@ -154,7 +156,7 @@ class _PaginaContatoState extends State<PaginaContato> {
     );
   }
 
-  Future<bool>_requestPop() {
+  Future<bool> _requestPop() {
     if (_userEdited) {
       showDialog(
           context: context,
@@ -180,8 +182,33 @@ class _PaginaContatoState extends State<PaginaContato> {
             );
           });
       return Future.value(false);
-    }else{
+    } else {
       return Future.value(true);
     }
   }
+
+  void _maxPoltronas() {
+    showDialog(
+        context: context,
+        child: new AlertDialog(
+          title: new Text("O número maximo de poltronas é  46"),
+          actions: <Widget>[
+            new FlatButton(
+                onPressed: () => Navigator.pop(context), child: new Text('Ok'))
+          ],
+        ));
+  }
+
+  void _maxGrupo() {
+    showDialog(
+        context: context,
+        child: new AlertDialog(
+          title: new Text("O número maximo de grupos é 6"),
+          actions: <Widget>[
+            new FlatButton(
+                onPressed: () => Navigator.pop(context), child: new Text('Ok'))
+          ],
+        ));
+  }
+
 }

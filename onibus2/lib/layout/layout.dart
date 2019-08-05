@@ -19,6 +19,11 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
   void initState() {
     super.initState();
     _getAllContact();
+
+    _getNumber();
+    
+
+
   }
 
   @override
@@ -321,4 +326,31 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
       });
     });
   }
+
+void _getNumber (){
+
+  helper.getNumber().then((int)
+   {
+      setState(() {
+        contacts = contacts;
+        print(contacts);
+      });
+    }
+  );
 }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
