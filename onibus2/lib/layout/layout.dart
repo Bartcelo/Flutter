@@ -62,20 +62,75 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
         tileMode: TileMode.clamp);
   }
 
+  Widget carContact(BuildContext context, int index) {
+    return Column(
+      children: <Widget>[
+        AppBar(
+            backgroundColor: Colors.green[50],
+            title: Text(
+              contacts[index].nome ?? "",
+              style: TextStyle(color: Colors.black),
+            )),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(0.0),
+                      child: Text('Grupo',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16)),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(0.0),
+                      child: Text('Grupo',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16)),
+                    ),
+                  ],
+                )
+              ],
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Column(
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.mode_edit),
+                    onPressed: () {
+                      _showContacpage(contact: contacts[index]);
+                    },
+                  ),
+                ],
+              ),
+            )
+          ],
+        )
+      ],
+    );
+  }
+
   Widget contactCard(BuildContext context, int index) {
     final _formKey = GlobalKey<FormState>();
     return Dismissible(
       key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
-     // background: Container(
-       // color: Colors.redAccent,
-        //child: Align(
-         // alignment: Alignment(1, 0),
-          //child: Icon(
-           // Icons.people,
-            //color: Colors.white,
-         // ),
-       // ),
-     // ),
+      background: Container(
+        color: Colors.redAccent,
+        child: Align(
+          alignment: Alignment(-0.9, 0),
+          child: Icon(
+            Icons.delete_forever,
+            color: Colors.white,
+          ),
+        ),
+      ),
       direction: DismissDirection.startToEnd,
       child: Container(
         child: Card(
@@ -89,90 +144,123 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                 )),
             Container(
                 child: Row(
-              //
-              //mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Column(
                   children: <Widget>[
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(0.0),
-                          child: Text('Grupo',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16)),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(3.0),
-                          child: Text(
-                            contacts[index].grupo ?? "",
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(0.0),
-                          child: Text('Pol',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16)),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(3.0),
-                          child: Text(
-                            contacts[index].poltrona ?? "",
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(0.0),
-                          child: Text('RG',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16)),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(3.0),
-                          child: Text(
-                            contacts[index].rg ?? "",
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        ),
+                        //-------------  Identificaçãodo grupo----------------
+                        Container(
+                            alignment: Alignment.center,
+                            margin: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(0))),
+                            padding: const EdgeInsets.all(5),
+                            child: Row(
+                              children: <Widget>[
+                                Text('Grupo:',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12)),
+                                Text(
+                                  contacts[index].grupo ?? "",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ],
+                            )),
+                        //-----------------------identificação da poltrona
+                        Container(
+                            alignment: Alignment.center,
+                            margin: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(0))),
+                            padding: const EdgeInsets.all(5),
+                            child: Row(
+                              children: <Widget>[
+                                Text('Pol:',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12)),
+                                Text(
+                                  contacts[index].poltrona ?? "",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ],
+                            )),
+                        //---------------------identificação do RG-------------
+                        Container(
+                            alignment: Alignment.center,
+                            margin: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(0))),
+                            padding: const EdgeInsets.all(5),
+                            child: Row(
+                              children: <Widget>[
+                                Text('RG:',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12)),
+                                Text(
+                                  contacts[index].rg ?? "",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ],
+                            )),
                       ],
                     ),
                     Row(
                       children: <Widget>[
+                       //------------------Sexta------------------
                         Container(
-                          margin: EdgeInsets.all(8),
+                          alignment: Alignment.center,
+                          width: 75,
+                          margin: EdgeInsets.all(5),
                           decoration: BoxDecoration(
                               color: Colors.green[50],
                               border: Border.all(color: Colors.black),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8),
                           child: Text(
                             contacts[index].sexta ?? "",
                             style: TextStyle(color: Colors.black),
                           ),
                         ),
+                        //------------------Sabado------------------
                         Container(
-                          margin: EdgeInsets.all(8),
+                          alignment: Alignment.center,
+                          width: 75,
+                          margin: EdgeInsets.all(5),
                           decoration: BoxDecoration(
                               color: Colors.green[50],
                               border: Border.all(color: Colors.black),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8),
                           child: Text(
                             contacts[index].sabado ?? "",
                             style: TextStyle(color: Colors.black),
                           ),
                         ),
+                        
                         Container(
-                          margin: EdgeInsets.all(2),
+                          alignment: Alignment.center,
+                          width: 75,
+                          margin: EdgeInsets.all(5),
                           decoration: BoxDecoration(
                               color: Colors.green[50],
                               border: Border.all(color: Colors.black),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8),
                           child: Text(
                             contacts[index].domingo ?? "",
                             style: TextStyle(color: Colors.black),
@@ -182,6 +270,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                     )
                   ],
                 ),
+                 //------------------Icone Editar------------------
                 Column(
                   children: <Widget>[
                     Container(
@@ -201,9 +290,6 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
       ),
       onDismissed: (direction) {
         setState(() {
-          //_lastRemoved = Map.from(contacts[index].toMap());
-          // _lastRemovedPos = index;
-
           helper.deleteContact(contacts[index].id);
           contacts.removeAt(index);
         });

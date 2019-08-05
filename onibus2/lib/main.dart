@@ -5,6 +5,7 @@ import 'layout/layout.dart';
 
 void  main(){
   runApp(MaterialApp(
+    title: 'Marcelo',
     debugShowCheckedModeBanner: false,
     home: TelaPrincipal(),
     //home: PaginaContato(),
