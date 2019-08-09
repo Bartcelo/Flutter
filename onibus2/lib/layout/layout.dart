@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:onibus2/helper/contact_helper.dart';
-
+import 'package:onibus2/layout/pdf.dart';
 import 'contac_page.dart';
+import 'pdf.dart';
+
+
+
 
 class TelaPrincipal extends StatefulWidget {
   @override
@@ -12,6 +16,10 @@ class TelaPrincipal extends StatefulWidget {
 class _TelaPrincipalState extends State<TelaPrincipal> {
   ContactHelper helper = ContactHelper();
   List<Contact> contacts = [];
+  
+  Pdf pdf = Pdf();
+
+  
 
   Map<String, dynamic> _lastRemoved;
   int _lastRemovedPos;
@@ -19,11 +27,6 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
   void initState() {
     super.initState();
     _getAllContact();
-
-    _getNumber();
-    
-
-
   }
 
   @override
@@ -36,6 +39,13 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
           'Arranjo de Ônibus',
           style: TextStyle(color: Colors.black),
         ),
+        actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.picture_as_pdf),
+          onPressed: (){_gerapdf();},
+        )
+        
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.greenAccent[100],
@@ -223,7 +233,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                     ),
                     Row(
                       children: <Widget>[
-                       //------------------Sexta------------------
+                        //------------------Sexta------------------
                         Container(
                           alignment: Alignment.center,
                           width: 75,
@@ -255,7 +265,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                             style: TextStyle(color: Colors.black),
                           ),
                         ),
-                        
+
                         Container(
                           alignment: Alignment.center,
                           width: 75,
@@ -275,7 +285,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
                     )
                   ],
                 ),
-                 //------------------Icone Editar------------------
+                //------------------Icone Editar------------------
                 Column(
                   children: <Widget>[
                     Container(
@@ -327,30 +337,9 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
     });
   }
 
-void _getNumber (){
+  void _gerapdf(){
+    pdf.main();
 
-  helper.getNumber().then((int)
-   {
-      setState(() {
-        contacts = contacts;
-        print(contacts);
-      });
-    }
-  );
-}
+  }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
