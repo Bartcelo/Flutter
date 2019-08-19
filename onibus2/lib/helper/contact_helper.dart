@@ -80,6 +80,31 @@ class ContactHelper {
     }
     return listContact;
   }
+
+
+
+  //----------------------inclusão marcelo -------------------
+  Future<int> poltronaContact(Contact contact) async{
+    Database dbContact = await db;
+    return await dbContact.update(contactTable,
+        contact.toMap(),
+        where: "$poltronaColumn = ?",
+        whereArgs: [contact.poltrona]);
+
+  }
+  Future<List> getPolContact() async{
+    Database dbContact = await db;
+    List listMap = await dbContact.rawQuery("SELECT * FROM $poltronaColumn");
+    List<Contact> listContact = List();
+    for (Map m  in listMap){
+      listContact.add(Contact.fromMap(m));
+    }
+    return listContact;
+  }
+
+//----------------------- Fim Marcelo-----------------------
+
+
   Future <int> getNumber() async{
     Database dbContact = await db;
     return Sqflite.firstIntValue(await dbContact.rawQuery("SELECT COUNT (*)FROM $contactTable"));

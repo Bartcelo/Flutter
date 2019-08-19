@@ -56,6 +56,7 @@ class _PaginaContatoState extends State<PaginaContato> {
             style: TextStyle(color: Colors.black),
           ),
         ),
+  //-------------------------- Botao salvar ------------------
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.greenAccent[100],
           onPressed: () {
@@ -67,6 +68,9 @@ class _PaginaContatoState extends State<PaginaContato> {
           },
           child: Icon(Icons.save, color: Colors.white),
         ),
+  //-------------------------- incrementa os valores textfildes -------------------
+
+
         body: SingleChildScrollView(
           padding: EdgeInsets.all(10),
           child: Column(
@@ -210,5 +214,16 @@ class _PaginaContatoState extends State<PaginaContato> {
           ],
         ));
   }
+void _alertaPdf(){
+  showDialog(
+        context: context,
+        child: new AlertDialog(
+          title: new Text("PDF gerao com sucesso"),
+          actions: <Widget>[
+            new FlatButton(
+                onPressed: () => Navigator.pop(context), child: new Text('Ok'))
+          ],
+        ));
+}
 
 }

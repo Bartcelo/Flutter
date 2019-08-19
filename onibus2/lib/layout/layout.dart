@@ -42,7 +42,9 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
         actions: <Widget>[
         IconButton(
           icon: Icon(Icons.picture_as_pdf),
-          onPressed: (){_gerapdf();},
+          onPressed: (){
+            _gerapdf();
+            _alertaPdf();},
         )
         
         ],
@@ -76,62 +78,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
         stops: [0.0, 2.9],
         tileMode: TileMode.clamp);
   }
-
-  Widget carContact(BuildContext context, int index) {
-    return Column(
-      children: <Widget>[
-        AppBar(
-            backgroundColor: Colors.green[50],
-            title: Text(
-              contacts[index].nome ?? "",
-              style: TextStyle(color: Colors.black),
-            )),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(0.0),
-                      child: Text('Grupo',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 16)),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(0.0),
-                      child: Text('Grupo',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 16)),
-                    ),
-                  ],
-                )
-              ],
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Column(
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.mode_edit),
-                    onPressed: () {
-                      _showContacpage(contact: contacts[index]);
-                    },
-                  ),
-                ],
-              ),
-            )
-          ],
-        )
-      ],
-    );
-  }
-
+  
   Widget contactCard(BuildContext context, int index) {
     final _formKey = GlobalKey<FormState>();
     return Dismissible(
@@ -341,5 +288,17 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
     pdf.main();
 
   }
+
+  void _alertaPdf(){
+  showDialog(
+        context: context,
+        child: new AlertDialog(
+          title: new Text("PDF gerao com sucesso"),
+          actions: <Widget>[
+            new FlatButton(
+                onPressed: () => Navigator.pop(context), child: new Text('Ok'))
+          ],
+        ));
+}
 
 }
