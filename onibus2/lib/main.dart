@@ -8,7 +8,7 @@ void  main(){
   runApp(MaterialApp(
     title: 'Marcelo',
     debugShowCheckedModeBanner: false,
-   // home: TelaPrincipal(),
+   //home: TelaPrincipal(),
     //home: PaginaContato(),
     home:TelaPoltrona(),
   ));

@@ -80,31 +80,6 @@ class ContactHelper {
     }
     return listContact;
   }
-
-
-
-  //----------------------inclusão marcelo -------------------
-  Future<int> poltronaContact(Contact contact) async{
-    Database dbContact = await db;
-    return await dbContact.update(contactTable,
-        contact.toMap(),
-        where: "$poltronaColumn = ?",
-        whereArgs: [contact.poltrona]);
-
-  }
-  Future<List> getPolContact() async{
-    Database dbContact = await db;
-    List listMap = await dbContact.rawQuery("SELECT * FROM $poltronaColumn");
-    List<Contact> listContact = List();
-    for (Map m  in listMap){
-      listContact.add(Contact.fromMap(m));
-    }
-    return listContact;
-  }
-
-//----------------------- Fim Marcelo-----------------------
-
-
   Future <int> getNumber() async{
     Database dbContact = await db;
     return Sqflite.firstIntValue(await dbContact.rawQuery("SELECT COUNT (*)FROM $contactTable"));
@@ -113,8 +88,56 @@ class ContactHelper {
     Database dbContact = await db;
     dbContact.close();
   }
+
+  //----------------------inclusão marcelo -------------------
+  
+  
+  Future<List> getPoltronas() async{
+    Database dbContact = await db;
+    List listMap = await dbContact.rawQuery("SELECT $poltronaColumn FROM $contactTable");
+    List<Contact> listContact = List();
+    for (Map m  in listMap){
+      listContact.add(Contact.fromMap(m));
+    }
+    return listContact;
+  }
+
+
+
+ 
+
+//----------------------- Fim Marcelo-----------------------
+
+
+
 }
 
+
+//----------------------inclusão marcelo -------------------
+class Poltronas{
+String poltrona;
+Poltronas();
+
+Poltronas.fromMap(Map map){
+    poltrona = map[poltronaColumn].cast<int>();
+    }
+
+  List get length => null;
+  Map toMap(){
+    Map<String, dynamic >map ={
+      poltronaColumn: poltrona,
+
+    };
+
+    if(poltrona != null){
+      map[poltronaColumn]=poltrona;
+    }
+    return map;
+  }
+  //----------------------inclusão marcelo -------------------
+
+
+}
 class Contact{
 
 
@@ -140,6 +163,8 @@ class Contact{
     domingo = map[domingoColumn];
 
     }
+
+  List get length => null;
   Map toMap(){
     Map<String, dynamic >map ={
       nomeColumn: nome,

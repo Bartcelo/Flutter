@@ -10,14 +10,17 @@ class TelaPoltrona extends StatefulWidget {
 
 class _TelaPoltronaState extends State<TelaPoltrona> {
   ContactHelper helper = ContactHelper();
-  List<Contact> contacts =  [];
+  List <Contact> contacts =  [];
+  List <Poltronas> poltrona = []; 
 
-  List _pol = const [null,1,2,3,4,5,6,7,8];
+
+ 
 
   @override
   void initState() {
     super.initState();
     _getAllContact();
+    _getPoltronas();
   }
 
   @override
@@ -30,36 +33,50 @@ class _TelaPoltronaState extends State<TelaPoltrona> {
           "Escolha sua Poltrona",
           style: TextStyle(color: Colors.black),
         )
-      ), 
-      body: OrientationBuilder(
+      ),
+       
+      body:      
+      OrientationBuilder(
         builder: (context, orientation) {
           return GridView.count(
             // Create a grid with 4 columns in portrait mode, or 4 columns in
             // landscape mode.
             crossAxisCount: orientation == Orientation.portrait ? 4 : 4,
             // Generate 49 widgets that display their index in the List.
-            children: List.generate( 48, (index) {
-              index = index +1;
+            children: List.generate( _getPoltronas(), (index) {
+              index = index +1;     
             // -------------------------------  Mudando a cor da poltrona  
-              var cor = Colors.green;
-
-
-              return Center(
-                child: Container(
+            return Center(
+                child: Stack(
+                  alignment: Alignment.topCenter,
+                                  children:<Widget>[ 
+                Container(                  
                   width: 80,
                   height: 80,
-                  decoration: BoxDecoration(
-                    color: cor,
-                     border:Border.all(color: Colors.black,width: 2),
-                     borderRadius: BorderRadius.all(Radius.circular(10))
-                  
-                  ),
-                  child: Center(
-                    child: Text(
-                      '$index',
-                      style: Theme.of(context).textTheme.headline,
+                 decoration: BoxDecoration(
+                      color:Colors.green[300],
+                       border:Border.all(color: Colors.black,width: 2),
+                       borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10))
+                    
                     ),
-                  ),
+                ),                    
+                Container(
+                  
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color:Colors.green[100],
+                       border:Border.all(color: Colors.black,width: 2),
+                      // borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10))
+                    
+                    ),
+                    child: Center(
+                      child: Text(
+                        '$index',
+                        style: Theme.of(context).textTheme.headline,
+                      ),
+                    ),
+                  ),]
                 ),
               );
             }),
@@ -67,7 +84,7 @@ class _TelaPoltronaState extends State<TelaPoltrona> {
         },
       ),
 );
-  }
+}
 
   LinearGradient getCustomGradient() {
     // Define a Linear Gradient
@@ -87,7 +104,11 @@ void _getAllContact() {
     });
   }
 
-
- 
-
-}
+   _getPoltronas() {
+    helper.getPoltronas().then((list) {
+      setState(() {
+        poltrona = list;
+      });
+    });
+  }
+ }
