@@ -43,7 +43,7 @@ class _TelaPoltronaState extends State<TelaPoltrona> {
             // landscape mode.
             crossAxisCount: orientation == Orientation.portrait ? 4 : 4,
             // Generate 49 widgets that display their index in the List.
-            children: List.generate( _getPoltronas(), (index) {
+            children: List.generate( 48, (index) {
               index = index +1;     
             // -------------------------------  Mudando a cor da poltrona  
             return Center(
