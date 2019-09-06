@@ -14,13 +14,13 @@ class _TelaPoltronaState extends State<TelaPoltrona> {
   List <Poltronas> poltrona = []; 
 
 
+
  
 
   @override
   void initState() {
     super.initState();
     _getAllContact();
-    _getPoltronas();
   }
 
   @override
