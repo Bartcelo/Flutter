@@ -11,7 +11,6 @@ class TelaPoltrona extends StatefulWidget {
 class _TelaPoltronaState extends State<TelaPoltrona> {
   ContactHelper helper = ContactHelper();
   List <Contact> contacts =  [];
-  List <Poltronas> poltrona = []; 
 
 
 
@@ -104,11 +103,4 @@ void _getAllContact() {
     });
   }
 
-   _getPoltronas() {
-    helper.getPoltronas().then((list) {
-      setState(() {
-        poltrona = list;
-      });
-    });
-  }
  }

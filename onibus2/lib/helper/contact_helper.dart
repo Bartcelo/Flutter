@@ -71,6 +71,7 @@ class ContactHelper {
         whereArgs: [contact.id]);
 
   }
+
    Future<List> getAllContact() async{
     Database dbContact = await db;
     List listMap = await dbContact.rawQuery("SELECT * FROM $contactTable");
@@ -80,64 +81,18 @@ class ContactHelper {
     }
     return listContact;
   }
+
   Future <int> getNumber() async{
     Database dbContact = await db;
     return Sqflite.firstIntValue(await dbContact.rawQuery("SELECT COUNT (*)FROM $contactTable"));
   }
+
   Future close() async{
     Database dbContact = await db;
     dbContact.close();
   }
-
-  //----------------------inclusão marcelo -------------------
-  
-  
-  Future<List> getPoltronas() async{
-    Database dbContact = await db;
-    List listMap = await dbContact.rawQuery("SELECT $poltronaColumn FROM $contactTable");
-    List<Contact> listContact = List();
-    for (Map m  in listMap){
-      listContact.add(Contact.fromMap(m));
-    }
-    return listContact;
-  }
-
-
-
- 
-
-//----------------------- Fim Marcelo-----------------------
-
-
-
 }
 
-
-//----------------------inclusão marcelo -------------------
-class Poltronas{
-String poltrona;
-Poltronas();
-
-Poltronas.fromMap(Map map){
-    poltrona = map[poltronaColumn].cast<int>();
-    }
-
-  List get length => null;
-  Map toMap(){
-    Map<String, dynamic >map ={
-      poltronaColumn: poltrona,
-
-    };
-
-    if(poltrona != null){
-      map[poltronaColumn]=poltrona;
-    }
-    return map;
-  }
-  //----------------------inclusão marcelo -------------------
-
-
-}
 class Contact{
 
 
