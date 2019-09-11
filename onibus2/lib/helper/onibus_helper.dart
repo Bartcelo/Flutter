@@ -28,7 +28,7 @@ _db= await initDb();
 
 Future <Database> initDb()async{
   final databasePath = await getDatabasesPath();
-final path = join(databasePath, "onibus.db");
+  final path = join(databasePath, "onibus.db");
 return await openDatabase(path, version: 1, onCreate: (Database db, int newVersion)async{
   await db.execute(
     "CREATE TABLE $onibusTable($idColumn INTEGER PRIMARY KEY, $poltronaColumn INTEGER,"
@@ -45,12 +45,12 @@ Future<Onibus> saveOnibus(Onibus onibus)async{
 
 Future<Onibus> getOnibus(int id) async{
   Database dbOnibus =  await db;
-List<Map> maps= await dbOnibus.query(onibusTable,
+  List<Map> maps= await dbOnibus.query(onibusTable,
   columns: [idColumn, poltronaColumn, capacidadeColumn, capitaoColumn],
   where: "$idColumn = ?",
   whereArgs: [id]);
 
-  maps.length >0 ? Onibus.fromMap(maps.first): null; 
+  maps.length > 0 ? Onibus.fromMap(maps.first): null; 
 }
 Future<int> deleteOnibus(int id) async{
     Database dbOnibus =  await db;
