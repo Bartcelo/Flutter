@@ -13,6 +13,7 @@ class PoltronaHelper{
  static final PoltronaHelper _instance =  PoltronaHelper.internal();
  factory PoltronaHelper() => _instance;
  PoltronaHelper.internal();
+ 
  Database _db;
  
  Future <Database> get db async{
@@ -31,13 +32,14 @@ class PoltronaHelper{
       });
 
     }
+
     Future<Poltrona> savePoltrona(Poltrona poltrona)async{
       Database dbPoltrona =  await db;
       poltrona.id  = await dbPoltrona.insert(poltronaTable, poltrona.toMap());
       return poltrona;
     }
 
-    getPoltrona(int id) async{
+    Future<Poltrona> getPoltrona(int id) async{
       Database dbPoltrona = await db;
       List<Map> maps = await dbPoltrona.query(poltronaTable,
       columns: [idColumn,numeroColumn, statusColumn,onibusColumn,preferencialColumn],

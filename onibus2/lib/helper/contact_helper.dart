@@ -61,7 +61,9 @@ class ContactHelper {
 
   Future<int> deleteContact (int id) async{
     Database dbContact = await db;
-    return await dbContact.delete(contactTable, where: "$idColumn = ? ", whereArgs: [id]);
+    return await dbContact.delete(contactTable,
+     where: "$idColumn = ? ",
+     whereArgs: [id]);
   }
   Future<int> updateContact(Contact contact) async{
     Database dbContact = await db;
