@@ -2,7 +2,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 
-final String poltronaTable = "poltronaColumn";
+final String poltronaTable = "poltronaTable";
 final String idColumn = "idColumn";
 final String numeroColumn = "numeroColumn";
 final String statusColumn = "statusColumn";

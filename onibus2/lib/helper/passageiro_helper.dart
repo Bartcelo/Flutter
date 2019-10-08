@@ -1,7 +1,7 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-final String passageiroTable = "passageiroColumn";
+final String passageiroTable = "passageiroTable";
 final String idColumn         = "idPassageiroColumn";
 final String nomeColumn       = "nomePassageiroColumn";
 final String grupoColumn      = "grupoColumn";
